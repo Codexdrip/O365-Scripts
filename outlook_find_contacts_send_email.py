@@ -1,4 +1,5 @@
 import win32com.client
+import sys
 
 DEBUG = 0
 
@@ -53,14 +54,18 @@ class MSOutlook:
                 self.records.append(record)
 
     def sendTheEmail(self, contactEmailAddr):
-        s = self.oOutlookApp.GetNamespace("MAPI")
-        s.Logon("Outlook2016")
-        Msg = self.oOutlookApp.CreateItem(0)
-        Msg.To = contactEmailAddr # 
-        Msg.Subject = 'PyLook test'# hard coded
-        Msg.Body = 'This is a test email, disregard' # hard coded
-
-        Msg.Send()
+        try:
+            s = self.oOutlookApp.GetNamespace("MAPI")
+            s.Logon("Outlook2016")
+            Msg = self.oOutlookApp.CreateItem(0)
+            Msg.To = contactEmailAddr # 
+            Msg.Subject = 'PyLook testFinal'# hard coded
+            Msg.Body = 'This is the Final test email, disregard' # hard coded
+            Msg.Send()            
+        except Exception as e:
+            print 'Try again something went wrong :\ '
+            print e
+            sys.exit(0)
 
 
 if __name__ == '__main__':
@@ -92,5 +97,5 @@ if __name__ == '__main__':
         print "Contact: %s, Email Address: %s" % (oOutlook.records[i]['FullName'], oOutlook.records[i]['Email1Address'])
 
     print '[+] Sending the email to: %s' % oOutlook.records[1]['Email1Address']
-    oOutlook.sendTheEmail(oOutlook.records[1]['Email1Address']) # If you want to change the recipient just change the number in the records[] array to the correct position.
+    oOutlook.sendTheEmail(oOutlook.records[1]['Email1Address']) # If you want to change the recipient just change the number in the records[] array to the correct position. 
     print '[+] Done!'
