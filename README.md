@@ -14,6 +14,10 @@ Outlook_find_contacts_send_email:
   updates:
   v2:
     - added try/catch to sendTheEmail() function
+    
+    
+ Outlook_Delete_old_messages:
+    This script automates deleting all messages that are older than a specified date. It sends all marked messages to the deleted_items folder.
 
 
 
